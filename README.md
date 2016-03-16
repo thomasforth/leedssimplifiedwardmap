@@ -1,5 +1,8 @@
 # leedssimplifiedwardmap
 A simplified way of showing the UK city of Leeds' wards in HTML.
+Both [hexmap](http://thomasforth.github.io/leedssimplifiedwardmap/hexmap.html) and [squaremap](http://thomasforth.github.io/leedssimplifiedwardmap/squaremap.html) versions are available.
+
+
 ## License
 MIT License
 
