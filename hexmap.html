@@ -1,0 +1,451 @@
+<style>
+    body {
+        font-family: sans-serif;
+        text-align: center;
+    }
+    
+    #hexagonMapHolder {
+        font-size: 0.8em;
+        display: inline-block;
+        text-align: center;
+        width: 800px;
+        vertical-align: top;
+        padding-top: 1em;
+    }
+    
+    select {
+        margin: 1em auto 2em auto;
+        /* font-size: 1.2em; */
+    }
+    
+    .hex {
+        float: left;
+        margin-left: 3px;
+        margin-bottom: -26px;
+    }
+    
+    .hex .top {
+        width: 0;
+        border-bottom: 30px solid lightgray;
+        border-left: 52px solid transparent;
+        border-right: 52px solid transparent;
+        transition: all 1s;
+    }
+    
+    .hex .middle {
+        width: 104px;
+        height: 60px;
+        background: lightgray;
+        transition: all 1s;
+    }
+    
+    .hex .bottom {
+        width: 0;
+        border-top: 30px solid lightgray;
+        border-left: 52px solid transparent;
+        border-right: 52px solid transparent;
+        transition: all 1s;
+    }
+    
+    .hex-row {
+        clear: left;
+    }
+    
+    .hex-row.even {
+        margin-left: 53px;
+    }
+    
+    .hex .middleBlank {
+        width: 104px;
+        height: 60px;
+        background: transparent;
+    }
+    
+    .hex .topBlank {
+        width: 0;
+        border-bottom: 30px solid transparent;
+        border-left: 52px solid transparent;
+        border-right: 52px solid transparent;
+    }
+    
+    .hex .bottomBlank {
+        width: 0;
+        border-top: 30px solid transparent;
+        border-left: 52px solid transparent;
+        border-right: 52px solid transparent;
+    }
+    
+    .wardName {
+        padding: 2px;
+    }
+    
+    .wardValue {
+        padding: 2px;
+        font-size: 1.3em;
+    }
+    
+    #LEEDS {
+        font-weight: bold;
+    }
+</style>
+
+
+<body>
+    <h1>BestChoice</h1>
+    <p>Increase your chances of securing a home by applying in a clever place.</p>
+    <div>
+        <label for="size">How many rooms?</label>
+        <select id="size" onchange="update()">
+            <option id="one">1 bed</option>
+            <option id="two">2 bed</option>
+            <option id="three">3 bed</option>
+        </select>
+    </div>
+    <div id="hexagonMapHolder">
+        <div id="hexagonMap">
+            <div class="hex-row">
+                <div class="hex">
+                    <div class="topBlank"></div>
+                    <div class="middleBlank"></div>
+                    <div class="bottomBlank"></div>
+                </div>
+                <div id="GUISELEY_AND_RAWDON" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Guiseley &amp; Rawdon</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="OTLEY_AND_YEADON" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Otley &amp; Yeadon</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="ADEL_AND_WHARFEDALE" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Adel &amp; Wharfedale</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="ALWOODLEY" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Alwoodley</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="HAREWOOD" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Harewood</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="WETHERBY" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Wetherby</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+            </div>
+            <div class="hex-row even">
+                <div class="hex">
+                    <div class="topBlank"></div>
+                    <div class="middleBlank"></div>
+                    <div class="bottomBlank"></div>
+                </div>
+                <div id="HORSFORTH" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Horsforth</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="WEETWOOD" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Weetwood</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="MOORTOWN" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Moortown</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="ROUNDHAY" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Roundhay</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+            </div>
+            <div class="hex-row">
+                <div id="CALVERLEY_AND_FARSLEY" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Calverley &amp; Farsley</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="BRAMLEY_AND_STANNINGLEY" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Bramley &amp; Staningley</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="KIRKSTALL" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Kirkstall</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="HEADINGLEY" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Headingley</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="CHAPEL_ALLERTON" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Chapel Allerton</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="KILLINGBECK_AND_SEACROFT" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Killingbeck &amp; Seacroft</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+            </div>
+            <div class="hex-row even">
+                <div id="PUDSEY" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Pudsey</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="ARMLEY" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Armley</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="HYDE_PARK_AND_WOODHOUSE" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Hyde Park &amp; Woodhouse</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div class="hex">
+                    <div class="topBlank"></div>
+                    <div class="middleBlank"></div>
+                    <div class="bottomBlank"></div>
+                </div>
+
+                <div id="GIPTON_AND_HAREHILLS" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Gipton &amp; Harehills</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="CROSS_GATES_AND_WHINMOOR" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Cross Gates &amp; Whinmoor</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+            </div>
+            <div class="hex-row">
+                <div class="hex">
+                    <div class="topBlank"></div>
+                    <div class="middleBlank"></div>
+                    <div class="bottomBlank"></div>
+                </div>
+                <div id="FARNLEY_AND_WORTLEY" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Farnley &amp; Wortley</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="BEESTON_AND_HOLBECK" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Beeston &amp; Holbeck</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="CITY_AND_HUNSLET" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">City &amp; Hunslet</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="BURMANTOFTS_AND_RICHMOND_HILL" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Burmantofts &amp; Richmond Hill</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="TEMPLE_NEWSAM" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Temple Newsam</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+            </div>
+            <div class="hex-row even">
+                <div class="hex">
+                    <div class="topBlank"></div>
+                    <div class="middleBlank"></div>
+                    <div class="bottomBlank"></div>
+                </div>
+                <div id="MORLEY_NORTH" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Morley North</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="MIDDLETON_PARK" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Middleton Park</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="ROTHWELL" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Rothwell</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="GARFORTH_AND_SWILLINGTON" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Garforth &amp; Swillington</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+            </div>
+            <div class="hex-row">
+                <div id="LEEDS" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Leeds</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div class="hex">
+                    <div class="topBlank"></div>
+                    <div class="middleBlank"></div>
+                    <div class="bottomBlank"></div>
+                </div>
+                <div id="MORLEY_SOUTH" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Morley South</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="ARDSLEY_AND_ROBIN_HOOD" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Ardsley &amp; Robin Hood</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+                <div id="KIPPAX_AND_METHLEY" class="ward hex">
+                    <div class="top"></div>
+                    <div class="middle">
+                        <div class="wardName">Kippax &amp; Methley</div>
+                        <div class="wardValue"></div>
+                    </div>
+                    <div class="bottom"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+<script>
+    var wardArray = ["ADEL_AND_WHARFEDALE", "ALWOODLEY", "ARDSLEY_AND_ROBIN_HOOD", "ARMLEY", "BEESTON_AND_HOLBECK", "BRAMLEY_AND_STANNINGLEY", "BURMANTOFTS_AND_RICHMOND_HILL", "CALVERLEY_AND_FARSLEY", "CHAPEL_ALLERTON", "CITY_AND_HUNSLET", "CROSS_GATES_AND_WHINMOOR", "FARNLEY_AND_WORTLEY", "GARFORTH_AND_SWILLINGTON", "GIPTON_AND_HAREHILLS", "GUISELEY_AND_RAWDON", "HAREWOOD", "HEADINGLEY", "HORSFORTH", "HYDE_PARK_AND_WOODHOUSE", "KILLINGBECK_AND_SEACROFT", "KIPPAX_AND_METHLEY", "KIRKSTALL", "MIDDLETON_PARK", "MOORTOWN", "MORLEY_NORTH", "MORLEY_SOUTH", "OTLEY_AND_YEADON", "PUDSEY", "ROTHWELL", "ROUNDHAY", "TEMPLE_NEWSAM", "WEETWOOD", "WETHERBY", "LEEDS"];
+
+    var oneBedA = [29, 35, 34, 31, 34, 32, 34, 25, 39, 44, 48, 28, 20, 42, 41, 35, 90, 32, 42, 32, 24, 57, 34, 39, 49, 48, 44, 31, 27, 36, 30, 41, 24, 36];
+    var twoBedA = [22, 43, 51, 25, 24, 36, 23, 42, 44, 30, 49, 32, 44, 39, 57, 76, 19, 40, 39, 38, 39, 43, 29, 32, 44, 36, 51, 36, 36, 38, 28, 45, 33, 35];
+    var threeBedA = [51, 66, 24, 21, 24, 24, 30, 36, 40, 28, 34, 23, 37, 27, 62, 24, 60, 51, 36, 28, 37, 40, 19, 46, 29, 29, 58, 28, 28, 38, 31, 48, 73, 32];
+
+    var bedsArray = [oneBedA, twoBedA, threeBedA];
+
+    function update() {
+        var sizeIndex = size.selectedIndex;
+        var resultsArray = bedsArray[sizeIndex];
+
+        for (var n = 0; n < wardArray.length; n++) {
+            var wardname = wardArray[n];
+            var colorShade = resultsArray[n] / 100;
+            document.getElementById(wardname).children[0].style.borderBottom = "30px solid rgba(100, 20, 20, " + colorShade + ")";
+            document.getElementById(wardname).children[1].style.background = "rgba(100, 20, 20, " + colorShade + ")";
+            document.getElementById(wardname).children[2].style.borderTop = "30px solid rgba(100, 20, 20, " + colorShade + ")";
+            document.getElementById(wardname).children[1].children[1].innerHTML = resultsArray[n] + " weeks";
+        }
+    }
+
+</script>
